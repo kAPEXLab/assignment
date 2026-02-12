@@ -1,9 +1,11 @@
 # Scenario: Log Monitoring System Using SIGUSR1 Between Unrelated Processes
 
 ### Context:
+
 You are building a simple software setup with two independent processes:
-	* Worker Process: Continuously generates log entries in a file app.log.
-	* Monitor Process: Periodically checks the size of app.log. When the file grows beyond a limit (given 	by user), the Monitor sends SIGUSR1 to the Worker.
+* **Worker Process**: Continuously generates log entries in a file app.log.
+* **Monitor Process**: Periodically checks the size of app.log. When the file grows beyond a limit (given 	by user), the Monitor sends SIGUSR1 to the Worker.
+
 When the Worker receives SIGUSR1, it must switch from detailed logging to minimal logging.
 
 ### PART 1 — Implement the Worker Process
