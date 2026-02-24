@@ -1,26 +1,26 @@
 ---
-title: KPIT APEX Lab Linux Assignment Page
+title: "KPIT APEX Lab Linux Assignment Page"
 layout: default
 ---
 
 <!--
-Landing page EXACTLY as required:
+Requirements:
 - Top header: "KPIT APEX Lab: Linux Assignment Page"
 - Below header: 20% index (left) + 80% content (right)
-- No logo, no "View the Project on GitHub", no footer/maintainer note
-- All assignment .md files stay in the repository root
+- Render root-level .md files on the right
+- Remove theme logo / "View on GitHub" / footer on THIS PAGE ONLY
+- Keep all files in repo root
 -->
 
 <style>
-/* ===== Remove ALL theme chrome on this page (jekyll-theme-minimal or similar) ===== */
+/* ===== Hide theme chrome on this page (jekyll-theme-minimal and similar) ===== */
 .page-header, .site-header, header,
 .site-footer, footer,
-a.btn[href*="github.com"], /* "View the Project on GitHub" button */
-a[href*="github.com"][class*="btn"] {
-  display: none !important;
-}
+a.btn[href*="github.com"],       /* "View the Project on GitHub" button */
+a[href*="github.com"].btn        /* some themes use .btn class */
+{ display: none !important; }
 
-/* ===== Page layout ===== */
+/* ===== Layout ===== */
 :root {
   --left: 20%;
   --right: 80%;
@@ -29,14 +29,13 @@ a[href*="github.com"][class*="btn"] {
   --bg: #ffffff;
   --text: #0f172a;
   --text-muted: #475569;
-  --text-hover: #0b1220;
 }
 
 body { margin: 0; padding: 0; }
 
 #apex-wrap { padding: 16px; }
 
-/* Top header you asked for */
+/* Top header */
 #apex-title {
   margin: 0 0 12px 0;
   font-size: 1.6rem;
@@ -44,7 +43,7 @@ body { margin: 0; padding: 0; }
   color: var(--text);
 }
 
-/* Grid below the header: 20% / 80% */
+/* 20/80 grid under the header */
 #apex-grid {
   display: grid;
   grid-template-columns: minmax(180px, var(--left)) var(--right);
@@ -63,13 +62,11 @@ body { margin: 0; padding: 0; }
   background: var(--bg);
   overflow-y: auto;
 }
-
 #apex-nav h3 {
   margin: 2px 0 10px 0;
   font-size: 1.05rem;
   color: var(--text-muted);
 }
-
 #apex-nav a {
   display: block;
   padding: 6px 8px;
@@ -79,12 +76,10 @@ body { margin: 0; padding: 0; }
   border-radius: 8px;
   border: 1px solid transparent;
 }
-
 #apex-nav a:hover,
 #apex-nav a.active {
   background: #eef2ff;
   border-color: #c7d2fe;
-  color: var(--text-hover);
 }
 
 /* Right content */
@@ -97,7 +92,10 @@ body { margin: 0; padding: 0; }
   padding: 16px;
 }
 
-/* Make code blocks pleasant */
+/* Code blocks */
+#apex-content pre, #apex-content code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+}
 #apex-content pre {
   background: #0f172a;
   color: #e5e7eb;
@@ -106,12 +104,7 @@ body { margin: 0; padding: 0; }
   overflow: auto;
 }
 
-/* Headings spacing inside content */
-#apex-content h1, #apex-content h2, #apex-content h3 {
-  margin-top: 1rem;
-}
-
-/* Responsive: stack on small screens */
+/* Responsive */
 @media (max-width: 900px) {
   #apex-grid { grid-template-columns: 1fr; }
   #apex-nav { position: relative; height: auto; }
@@ -120,23 +113,25 @@ body { margin: 0; padding: 0; }
 </style>
 
 <div id="apex-wrap">
-  <!-- TOP HEADER (only visible header) -->
-  <h1 id="apex-title">KPIT APEX Lab - Linux Assignment Page</h1>
+  <!-- HEADER -->
+  <h1 id="apex-title">KPIT APEX Lab: Linux Assignment Page</h1>
 
-  <!-- TWO-COLUMN LAYOUT BELOW THE HEADER -->
+  <!-- TWO-COLUMN SECTION -->
   <div id="apex-grid">
     <!-- LEFT: INDEX (20%) -->
     <aside id="apex-nav">
       <h3>Index</h3>
-      <!-- Update this list to match the .md files you keep in root -->
-      #signal.mdSignals</a>
-      #thread.mdThreads</a>
+
+      <!-- ✅ Correct anchor format: href points to hash, data-file is the filename -->
+      <a href="#signal.md"     data-file="signal.md">Signals</a>
+      <a href="#thread.md"     data-file="thread.md">Threads</a>
+
       <hr>
       <strong>POSIX IPC</strong>
-      #posixpipe.mdPipes (Unnamed)</a>
-      #posixfifo.mdFIFOs (Named Pipes)</a>
-      #posixshm.mdShared Memory</a>
-      #posixmsgque.mdMessage Queues</a>
+      <a href="#posixpipe.md"  data-file="posixpipe.md">Pipes (Unnamed)</a>
+      <a href="#posixfifo.md"  data-file="posixfifo.md">FIFOs (Named Pipes)</a>
+      <a href="#posixshm.md"   data-file="posixshm.md">Shared Memory</a>
+      <a href="#posixmsgque.md"data-file="posixmsgque.md">Message Queues</a>
     </aside>
 
     <!-- RIGHT: CONTENT (80%) -->
@@ -146,13 +141,13 @@ body { margin: 0; padding: 0; }
   </div>
 </div>
 
-<!-- Markdown renderer (MIT) -->
+<!-- ✅ Proper script tag with src attribute -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
-/* Client-side loader: fetches & renders ROOT .md files into the right pane */
+/* Loader: fetch & render root-level Markdown files into the right pane */
 (function () {
-  const RAW = "https://raw.githubusercontent.com/kAPEXLab/assignment/main/"; // root of your repo
+  const RAW = "https://raw.githubusercontent.com/kAPEXLab/assignment/main/"; // root of repo
   const nav = document.getElementById("apex-nav");
   const viewer = document.getElementById("apex-viewer");
 
@@ -165,7 +160,7 @@ body { margin: 0; padding: 0; }
       viewer.innerHTML = marked.parse(md);
       highlight(file);
       if (push) history.pushState({ file }, "", "#" + file);
-      viewer.scrollTo({ top: 0, behavior: "instant" });
+      viewer.scrollTop = 0;
     } catch (e) {
       viewer.innerHTML = "<p style='color:#b91c1c'><strong>Error:</strong> " + e.message + "</p>";
     }
@@ -177,7 +172,7 @@ body { margin: 0; padding: 0; }
     });
   }
 
-  // Link clicks in the index
+  // Clicks on the index
   nav.addEventListener("click", (e) => {
     const a = e.target.closest("a[data-file]");
     if (!a) return;
@@ -185,18 +180,18 @@ body { margin: 0; padding: 0; }
     load(a.dataset.file);
   });
 
-  // Back/forward support
-  windower("popstate", (e) => {
+  // Back/forward navigation
+  window.addEventListener("popstate", (e) => {
     const file = (e.state && e.state.file) || (location.hash ? location.hash.slice(1) : "signal.md");
     load(file, false);
   });
 
-  // Initial load (default to signal.md if no hash)
+  // Initial content
   const initial = location.hash ? location.hash.slice(1) : "signal.md";
   load(initial, false);
 })();
 </script>
 
 <noscript>
-  <p><strong>Note:</strong> Enable JavaScript to view assignment content.</p>
+  <p><strong>Note:</strong> JavaScript is required to render the assignment content inline.</p>
 </noscript>
