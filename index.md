@@ -77,7 +77,8 @@ a[href*="github.com"].btn {
   min-height: calc(100vh - 100px);
   overflow-y: auto;
 }
-/* Code blocks */
+
+/* Code blocks for readability */
 #apex-content pre {
   background: #0f172a;
   color: #e5e7eb;
@@ -105,16 +106,16 @@ a[href*="github.com"].btn {
     <aside id="apex-nav">
       <h3>Index</h3>
 
-      <!-- ✅ VALID ANCHORS: href="#file.md" and data-file="file.md" -->
-      #signal.mdSignals</a>
-      #thread.mdThreads</a>
+      <!-- ✅ VALID ANCHORS (href + data-file) -->
+      <a href="#signal.md" data-file="signal.md">Signals</a>
+      <a href="#thread.md" data-file="thread.md">Threads</a>
 
       <hr>
       <strong>POSIX IPC</strong>
-      #posixpipe.mdPipes (Unnamed)</a>
-      #posixfifo.mdFIFOs (Named Pipes)</a>
-      #posixmsgque.mdMessage Queues</a>
-      #posixshm.mdShared Memory</a>
+      <a href="#posixpipe.md" data-file="posixpipe.md">Pipes (Unnamed)</a>
+      <a href="#posixfifo.md" data-file="posixfifo.md">FIFOs (Named Pipes)</a>
+      <a href="#posixmsgque.md" data-file="posixmsgque.md">Message Queues</a>
+      <a href="#posixshm.md" data-file="posixshm.md">Shared Memory</a>
     </aside>
 
     <!-- RIGHT: CONTENT -->
@@ -126,7 +127,7 @@ a[href*="github.com"].btn {
 </div>
 
 <!-- ===== 5) Load Marked.js correctly (src attribute is essential) ===== -->
-https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
 /* ===== 6) Client loader: fetch & render root-level .md ===== */
@@ -143,7 +144,7 @@ https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
       const md = await res.text();
       viewer.innerHTML = marked.parse(md);
 
-      // Highlight current entry
+      // highlight current entry
       nav.querySelectorAll("a[data-file]").forEach(a =>
         a.classList.toggle("active", a.dataset.file === file)
       );
