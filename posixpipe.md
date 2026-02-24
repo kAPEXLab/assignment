@@ -2,6 +2,7 @@
 ## Sensor Data Splitter Using Parent + Two Children
 
 _Problem Statement_
+
 You will create an application where:
 * The parent process simulates a temperature sensor by generating values periodically.
 * Child 1 logs raw temperature values.
