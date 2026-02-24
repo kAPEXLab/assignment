@@ -4,7 +4,7 @@ layout: default
 ---
 
 <style>
-/* 0) Use full width: override GitHub Pages theme container */
+/* ===== 0) Make page full-width (override GitHub Pages wrapper) ===== */
 .wrapper,
 .page,
 main,
@@ -16,7 +16,7 @@ div[role="main"] {
 }
 body { margin: 0 !important; padding: 0 !important; }
 
-/* 1) Hide theme chrome on THIS page */
+/* ===== 1) Hide theme chrome on THIS page ===== */
 .page-header, .site-header, header,
 .site-footer, footer,
 a.btn[href*="github.com"],
@@ -24,7 +24,7 @@ a[href*="github.com"].btn {
   display: none !important;
 }
 
-/* 2) Layout: header + 20/80 grid */
+/* ===== 2) Layout: header + 20/80 grid ===== */
 #apex-wrap { padding: 16px; }
 #apex-title {
   margin: 0 0 14px 0;
@@ -39,7 +39,7 @@ a[href*="github.com"].btn {
   align-items: start;
 }
 
-/* 3) Left Index */
+/* ===== 3) Left Index ===== */
 #apex-nav {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -68,7 +68,7 @@ a[href*="github.com"].btn {
   border-color: #c7d2fe;
 }
 
-/* 4) Right Content */
+/* ===== 4) Right Content ===== */
 #apex-content {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -77,7 +77,6 @@ a[href*="github.com"].btn {
   min-height: calc(100vh - 100px);
   overflow-y: auto;
 }
-
 /* Code blocks */
 #apex-content pre {
   background: #0f172a;
@@ -106,7 +105,7 @@ a[href*="github.com"].btn {
     <aside id="apex-nav">
       <h3>Index</h3>
 
-      <!-- IMPORTANT: valid anchors (href + data-file) -->
+      <!-- ✅ VALID ANCHORS: href="#file.md" and data-file="file.md" -->
       #signal.mdSignals</a>
       #thread.mdThreads</a>
 
@@ -126,10 +125,11 @@ a[href*="github.com"].btn {
   </div>
 </div>
 
-<!-- Load Marked.js correctly (src attribute is essential) -->
+<!-- ===== 5) Load Marked.js correctly (src attribute is essential) ===== -->
 https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
+/* ===== 6) Client loader: fetch & render root-level .md ===== */
 (function () {
   const RAW = "https://raw.githubusercontent.com/kAPEXLab/assignment/main/"; // repo root
   const nav = document.getElementById("apex-nav");
@@ -143,7 +143,7 @@ https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
       const md = await res.text();
       viewer.innerHTML = marked.parse(md);
 
-      // highlight current entry
+      // Highlight current entry
       nav.querySelectorAll("a[data-file]").forEach(a =>
         a.classList.toggle("active", a.dataset.file === file)
       );
@@ -163,7 +163,7 @@ https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     load(a.dataset.file);
   });
 
-  // Back/forward
+  // Back/forward support
   window.addEventListener("popstate", (e) => {
     const file = (e.state && e.state.file) || (location.hash ? location.hash.slice(1) : "signal.md");
     load(file, false);
