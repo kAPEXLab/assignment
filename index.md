@@ -3,37 +3,41 @@ title: KPIT APEX Lab — Assignments
 layout: default
 ---
 
-<div class="apex-layout">
-  <aside class="apex-sidebar">
-    <h2>Assignments</h2>
-    <nav>
-      <a href="signal.md" target="apexFrame">Signals</a>
-      <a href="thread.md" target="apexFrame">Threads</a>
-      <hr>
-      <strong>POSIX IPC</strong>
-      <a href="posixpipe.md" target="apexFrame">Pipes (Unnamed)</a>
-      <a href="posixfifo.md" target="apexFrame">FIFOs (Named Pipes)</a>
-      <a href="posixmsgque.md" target="apexFrame">Message Queues</a>
-      <a href="posixshm.md" target="apexFrame">Shared Memory</a>
-    </nav>
-  </aside>
-
-  <main class="apex-content">
-    <!-- Default page loaded on first visit -->
-    <iframe name="apexFrame" id="apexFrame" src="signal.md" title="Assignment Viewer" loading="lazy"></iframe>
-  </main>
-</div>
+<!--
+Landing page with 20/80 split.
+- Left: index (sticky)
+- Right: content rendered from root-level .md files (no raw view)
+- Hides logo, "View the Project on GitHub", and footer text for this page.
+- Keeps ALL files at repo root.
+-->
 
 <style>
+  /* Hide theme chrome ONLY on this landing page */
+  /* jekyll-theme-minimal common selectors */
+  .site-header,
+  .site-footer,
+  .page-header .project-name,
+  .page-header .project-tagline,
+  .footer-col-1, .footer-col-2, .footer-col-3,
+  .wrapper .header,
+  header .btn, /* "View the Project on GitHub" */
+  a[href*="github.com"][class*="btn"] {
+    display: none !important;
+  }
+
+  /* Page layout */
   :root {
-    --sidebar-width: 280px;
+    --sidebar-width: 20%;
+    --content-width: 80%;
     --gap: 16px;
     --border: #e5e7eb;
     --bg: #ffffff;
+    --link: #0f172a;
+    --link-hover: #111827;
   }
   .apex-layout {
     display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-columns: var(--sidebar-width) var(--content-width);
     gap: var(--gap);
     align-items: start;
   }
@@ -57,42 +61,8 @@ layout: default
   }
   .apex-sidebar nav a {
     text-decoration: none;
-    color: #0f172a;
+    color: var(--link);
     padding: 6px 8px;
     border-radius: 8px;
     border: 1px solid transparent;
-  }
-  .apex-sidebar nav a:hover {
-    background: #f8fafc;
-    border-color: var(--border);
-  }
-  .apex-content {
-    min-height: calc(100vh - 60px);
-  }
-  #apexFrame {
-    width: 100%;
-    height: calc(100vh - 60px);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg);
-  }
-
-  /* Small screens: stack */
-  @media (max-width: 960px) {
-    .apex-layout {
-      grid-template-columns: 1fr;
-    }
-    .apex-sidebar {
-      position: relative;
-      height: auto;
-    }
-    #apexFrame {
-      height: 70vh;
-    }
-  }
-</style>
-
-<noscript>
-  <p><strong>Note:</strong> This page uses an iframe for right‑side viewing.
-  If you prefer navigation without iframe, ask for the “single‑page loader” version.</p>
-</noscript>
+    display: block;
