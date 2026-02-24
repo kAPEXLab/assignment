@@ -82,6 +82,8 @@ Important learning:
 * Only one child will get each specific item in real pipe behavior.
 * This introduces students to real limitations of pipes.
 
+---
+
 **Expected Outcomes**
 * Create pipes and use file descriptors correctly.
 * Create two children and manage independent read loops.
