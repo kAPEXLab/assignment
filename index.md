@@ -1,5 +1,5 @@
 ---
-title: KPIT APEX Lab: Linux Assignment Page
+title: KPIT APEX Lab Linux Assignment Page
 layout: default
 ---
 
