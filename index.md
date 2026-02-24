@@ -121,7 +121,7 @@ body { margin: 0; padding: 0; }
 
 <div id="apex-wrap">
   <!-- TOP HEADER (only visible header) -->
-  <h1 id="apex-title">KPIT APEX Lab: Linux Assignment Page</h1>
+  <h1 id="apex-title">KPIT APEX Lab - Linux Assignment Page</h1>
 
   <!-- TWO-COLUMN LAYOUT BELOW THE HEADER -->
   <div id="apex-grid">
