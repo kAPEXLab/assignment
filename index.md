@@ -130,8 +130,8 @@ body { margin: 0; padding: 0; }
       <strong>POSIX IPC</strong>
       <a href="#posixpipe.md"  data-file="posixpipe.md">Pipes (Unnamed)</a>
       <a href="#posixfifo.md"  data-file="posixfifo.md">FIFOs (Named Pipes)</a>
+      <a href="#posixmsgque.md" data-file="posixmsgque.md">Message Queues</a>
       <a href="#posixshm.md"   data-file="posixshm.md">Shared Memory</a>
-      <a href="#posixmsgque.md"data-file="posixmsgque.md">Message Queues</a>
     </aside>
 
     <!-- RIGHT: CONTENT (80%) -->
