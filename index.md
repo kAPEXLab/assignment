@@ -1,60 +1,73 @@
 ---
-title: Assignments
+title: KPIT APEX Lab — System Programming Assignments
 layout: default
 ---
 
 <!--
-Landing page with 20/80 split.
-- Left: index (sticky)
-- Right: content rendered from root-level .md files (not raw)
-- Hides logo, "View the Project on GitHub", and footer text on THIS page only.
-- Keeps ALL files at repo root.
+Landing page:
+- Heading on top
+- Index directly below heading (left 20%)
+- Content on right (80%)
+- Hide theme chrome (logo, "View the Project on GitHub", "maintained by ...") on THIS page only
+- All assignment .md files remain in repo root
 -->
 
 <style>
-/* Hide GitHub Pages theme chrome ONLY on this page */
-.page-header,            /* top banner with title/tagline in jekyll-theme-minimal */
-.site-footer,            /* bottom footer area */
+/* ===== Hide default theme chrome on this page (jekyll-theme-minimal) ===== */
+.page-header,            /* top banner with project name/tagline */
+.site-footer,            /* footer with 'maintained by' text */
 a.btn[href*="github.com"]/* "View the Project on GitHub" button */ {
   display: none !important;
 }
 
-/* Page layout variables */
+/* ===== Page layout ===== */
 :root {
   --left: 20%;
   --right: 80%;
+  --gap: 14px;
   --border: #e5e7eb;
   --bg: #ffffff;
   --text: #0f172a;
   --text-hover: #111827;
 }
 
-body {
-  margin: 0;
-  padding: 0;
+body { margin: 0; padding: 0; }
+
+/* Container for heading + two-column area below it */
+.page-wrap {
+  padding: 16px;
 }
 
-.main-container {
+/* Heading styling (stays visible, above the index) */
+.page-title {
+  margin: 0 0 12px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Two-column grid directly BELOW the heading */
+.main-grid {
   display: grid;
   grid-template-columns: var(--left) var(--right);
-  gap: 12px;
-  padding: 12px;
+  gap: var(--gap);
+  align-items: start;
 }
 
-/* LEFT SIDEBAR */
+/* Left index (sidebar) */
 .sidebar {
   position: sticky;
-  top: 0;
-  height: calc(100vh - 24px);
+  top: 10px;
+  height: calc(100vh - 80px);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 12px;
   background: var(--bg);
   overflow-y: auto;
 }
 
 .sidebar h3 {
-  margin: 4px 0 10px;
+  margin: 2px 0 10px 0;
   font-size: 1.05rem;
 }
 
@@ -64,7 +77,7 @@ body {
   margin-bottom: 6px;
   color: var(--text);
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid transparent;
 }
 
@@ -75,79 +88,80 @@ body {
   color: var(--text-hover);
 }
 
-/* RIGHT CONTENT AREA */
+/* Right content area */
 .content-box {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 16px;
   background: var(--bg);
-  height: calc(100vh - 24px);
+  min-height: calc(100vh - 80px);
   overflow-y: auto;
 }
 
-/* RESPONSIVE */
+/* Responsive: stack on small screens */
 @media (max-width: 900px) {
-  .main-container {
-    grid-template-columns: 1fr;
-  }
-  .sidebar {
-    position: relative;
-    height: auto;
-  }
-  .content-box {
-    height: auto;
-    min-height: 60vh;
-  }
+  .main-grid { grid-template-columns: 1fr; }
+  .sidebar { position: relative; height: auto; }
+  .content-box { min-height: 60vh; }
 }
 </style>
 
-<div class="main-container">
+<div class="page-wrap">
+  <!-- Top heading (kept) -->
+  <h1 class="page-title">KPIT APEX Lab — System Programming Assignments</h1>
 
-  <!-- LEFT SIDEBAR -->
-  <div class="sidebar" id="apexNav">
-    <h3>Assignments</h3>
-    <a href="#signal.md"     data-file="signal.md">Signals</a>
-    <a href="#thread.md"     data-file="thread.md">Threads</a>
-    <hr>
-    <strong>POSIX IPC</strong>
-    <a href="#posixpipe.md"  data-file="posixpipe.md">Pipes (Unnamed)</a>
-    <a href="#posixfifo.md"  data-file="posixfifo.md">FIFOs (Named Pipes)</a>
-    <a href="#posixshm.md"   data-file="posixshm.md">Shared Memory</a>
-    <a href="#posixmsgque.md"data-file="posixmsgque.md">Message Queues</a>
+  <!-- Two-column area directly under the heading -->
+  <div class="main-grid">
+    <!-- LEFT: Index (20%) -->
+    <aside class="sidebar" id="apexNav">
+      <h3>Index</h3>
+      #signal.mdSignals</a>
+      #thread.mdThreads</a>
+      <hr>
+      <strong>POSIX IPC</strong>
+      #posixpipe.mdPipes (Unnamed)</a>
+      #posixfifo.mdFIFOs (Named Pipes)</a>
+      #posixmsgque.mdMessage Queues</a>
+      #posixshm.mdShared Memory</a>
+    </aside>
+
+    <!-- RIGHT: Content (80%) -->
+    <main class="content-box">
+      <article id="apexViewer"><em>Loading…</em></article>
+    </main>
   </div>
-
-  <!-- RIGHT CONTENT AREA -->
-  <div class="content-box">
-    <article id="apexViewer"><em>Loading…</em></article>
-  </div>
-
 </div>
 
-<!-- Marked.js (Markdown renderer) -->
+<!-- Markdown renderer -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
-(function() {
-  const RAW_BASE = "https://raw.githubusercontent.com/kAPEXLab/assignment/main/"; // root files
-  const viewer = document.getElementById("apexViewer");
+/* Client-side loader: fetches and renders root-level .md files into the right pane */
+(function () {
+  const RAW_BASE = "https://raw.githubusercontent.com/kAPEXLab/assignment/main/"; // root of repo
   const nav = document.getElementById("apexNav");
+  const viewer = document.getElementById("apexViewer");
 
-  async function loadFile(file, push=true) {
+  async function loadFile(file, push = true) {
     try {
       viewer.innerHTML = "<em>Loading…</em>";
       const res = await fetch(RAW_BASE + file, { cache: "no-cache" });
       if (!res.ok) throw new Error("Failed to fetch " + file + " (" + res.status + ")");
       const md = await res.text();
-      // Render Markdown -> HTML
+
+      // Render Markdown
       viewer.innerHTML = marked.parse(md);
+
       // Highlight active link
       highlight(file);
-      // Persist deep link
+
+      // Update URL hash for deep-linking/back-forward
       if (push) history.pushState({ file }, "", "#" + file);
-      // Scroll to top of content pane
+
+      // Ensure we see top of the new content
       viewer.scrollTo({ top: 0, behavior: "smooth" });
-    } catch (err) {
-      viewer.innerHTML = "<p style='color:#b91c1c'><strong>Error:</strong> " + err.message + "</p>";
+    } catch (e) {
+      viewer.innerHTML = "<p style='color:#b91c1c'><strong>Error:</strong> " + e.message + "</p>";
     }
   }
 
@@ -157,6 +171,7 @@ body {
     });
   }
 
+  // Handle clicks on the index
   nav.addEventListener("click", (e) => {
     const a = e.target.closest("a[data-file]");
     if (!a) return;
@@ -164,6 +179,7 @@ body {
     loadFile(a.dataset.file);
   });
 
+  // Support browser back/forward
   window.addEventListener("popstate", (e) => {
     const file = (e.state && e.state.file) || (location.hash ? location.hash.slice(1) : "signal.md");
     loadFile(file, false);
