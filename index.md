@@ -1,68 +1,78 @@
 ---
-title: KPIT APEX Lab — Assignments
+title: Assignments
 layout: default
 ---
 
-<!--
-Landing page with 20/80 split.
-- Left: index (sticky)
-- Right: content rendered from root-level .md files (no raw view)
-- Hides logo, "View the Project on GitHub", and footer text for this page.
-- Keeps ALL files at repo root.
--->
-
+<!-- HIDE GitHub Pages default header/footer -->
 <style>
-  /* Hide theme chrome ONLY on this landing page */
-  /* jekyll-theme-minimal common selectors */
-  .site-header,
-  .site-footer,
-  .page-header .project-name,
-  .page-header .project-tagline,
-  .footer-col-1, .footer-col-2, .footer-col-3,
-  .wrapper .header,
-  header .btn, /* "View the Project on GitHub" */
-  a[href*="github.com"][class*="btn"] {
-    display: none !important;
-  }
+/* Hide theme header (project title + tagline) */
+header.site-header,
+header,
+.site-header {
+  display: none !important;
+}
 
-  /* Page layout */
-  :root {
-    --sidebar-width: 20%;
-    --content-width: 80%;
-    --gap: 16px;
-    --border: #e5e7eb;
-    --bg: #ffffff;
-    --link: #0f172a;
-    --link-hover: #111827;
-  }
-  .apex-layout {
-    display: grid;
-    grid-template-columns: var(--sidebar-width) var(--content-width);
-    gap: var(--gap);
-    align-items: start;
-  }
-  .apex-sidebar {
-    position: sticky;
-    top: 0;
-    height: calc(100vh - 60px);
-    overflow: auto;
-    padding: 12px 12px 24px 12px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg);
-  }
-  .apex-sidebar h2 {
-    margin: 4px 0 10px;
-    font-size: 1.05rem;
-  }
-  .apex-sidebar nav {
-    display: grid;
-    gap: 8px;
-  }
-  .apex-sidebar nav a {
-    text-decoration: none;
-    color: var(--link);
-    padding: 6px 8px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    display: block;
+/* Hide “View the Project on GitHub” button */
+a.github-button,
+a.btn,
+header .btn,
+header a[href*="github.com"] {
+  display: none !important;
+}
+
+/* Hide footer (“This project is maintained by…”) */
+footer,
+.site-footer,
+.footer {
+  display: none !important;
+}
+
+/* BODY LAYOUT */
+:root {
+  --left: 20%;
+  --right: 80%;
+  --border: #e5e7eb;
+  --bg: #ffffff;
+  --text: #0f172a;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: var(--left) var(--right);
+  gap: 10px;
+  padding: 10px;
+}
+
+/* LEFT SIDEBAR */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.sidebar a {
+  display: block;
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+}
+
+/* RIGHT CONTENT AREA */
