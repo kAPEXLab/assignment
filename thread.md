@@ -5,8 +5,7 @@ nav: true
 nav_order: 3
 ---
 
-# Thread
-## Robot Battery Monitor
+# Robot Battery Monitor
 
 * Imagine you are developing basic software for a home-cleaning robot. The robot continuously moves around the house and its battery slowly drains. When the battery becomes too low, the robot must automatically go to the charging dock and start charging.
 * To simulate this behavior, you must write a C program that uses:
