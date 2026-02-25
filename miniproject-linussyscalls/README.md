@@ -15,9 +15,10 @@
 - Threads: `pthread_create/join`, mutex/cond → internal ring buffer
 
 ## Build
-```bash
-make
-``
+
+    make
+
+
 ---
 
 # *Phase 1 — Project Proposal*
@@ -164,4 +165,5 @@ Repo Layout
     │  ├─ run_smoke.sh
     │  ├─ run_stress.sh
     ├─ Makefile
+
     └─ README.md
