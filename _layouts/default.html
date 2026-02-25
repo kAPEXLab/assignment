@@ -85,19 +85,49 @@
     <aside>
       <p class="nav-title">Index</p>
       <ul class="nav-list">
-        {% assign pages_sorted = site.pages
-           | where_exp:'p','p.nav == true' 
-           | sort: 'category' 
-           | sort: 'nav_order' 
-        %}
-        {% for p in pages_sorted %}
-          <li>
-            <a class="nav-link"
-               href="{{ p.url | relative_url }}"
-               {% if p.url == page.url %}aria-current="page"{% endif %}>
-              {{ p.title }}
-            </a>
-          </li>
+        {% comment %}
+          Build a list of pages that should appear in the nav,
+          then derive the unique category list (with a fallback).
+        {% endcomment %}
+        {% assign nav_pages = site.pages | where_exp:'p','p.nav == true' %}
+        {% assign categories = nav_pages | map: 'category' | uniq | sort %}
+        
+        {% comment %}
+          If some pages lack `category`, treat them as "Other".
+        {% endcomment %}
+        {% assign has_uncat = false %}
+        {% for p in nav_pages %}
+          {% if p.category == nil or p.category == '' %}
+            {% assign has_uncat = true %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if has_uncat %}
+          {% assign categories = categories | push: 'Other' %}
+        {% endif %}
+        
+        {% for cat in categories %}
+          {% if cat and cat != '' %}
+            <p class="nav-title">{{ cat }}</p>
+          {% else %}
+            <p class="nav-title">Other</p>
+          {% endif %}
+        
+          <ul class="nav-list">
+            {% assign items = nav_pages | where: 'category', cat | sort: 'nav_order' %}
+            {% if cat == 'Other' %}
+              {% assign items = nav_pages | where_exp:'p','p.category == nil or p.category == ""' | sort:'nav_order' %}
+            {% endif %}
+        
+            {% for p in items %}
+              <li>
+                <a class="nav-link" href="{{ p.url | relative_url }}"
+                   {% if p.url == page.url %}aria-current="page"{% endif %}>
+                  {{ p.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         {% endfor %}
       </ul>
     </aside>
