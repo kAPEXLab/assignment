@@ -1,5 +1,11 @@
-# POSIX PIPE
-## Sensor Data Splitter Using Parent + Two Children
+---
+layout: default
+title: POSIX PIPE
+nav: true
+nav_order: 3
+---
+
+# Sensor Data Splitter Using Parent + Two Children
 
 _Problem Statement_
 
