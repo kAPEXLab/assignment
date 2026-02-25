@@ -2,7 +2,7 @@
 layout: default
 title: POSIX Message Queue
 nav: true
-nav_order: 5
+nav_order: 6
 ---
 
 # Priority-Based Task Notification System
