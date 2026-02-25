@@ -1,6 +1,7 @@
 ---
 layout: default
 title: POSIX FIFO
+category: IPC
 nav: true
 nav_order: 5
 ---
