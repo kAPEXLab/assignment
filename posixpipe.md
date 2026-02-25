@@ -1,6 +1,7 @@
 ---
 layout: default
 title: POSIX PIPE
+category: IPC
 nav: true
 nav_order: 4
 ---
