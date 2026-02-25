@@ -1,3 +1,12 @@
+<!-- DEBUG START -->
+{% for p in site.pages %}
+- TITLE: {{ p.title | inspect }} |
+  NAV: {{ p.nav | inspect }} |
+  CATEGORY: {{ p.category | inspect }} |
+  URL: {{ p.url | inspect }}
+{% endfor %}
+<!-- DEBUG END -->
+
 ---
 layout: default
 title: Home
