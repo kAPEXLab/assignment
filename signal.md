@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Signals
+category: Process Contro
 nav: true
 nav_order: 2
 ---
