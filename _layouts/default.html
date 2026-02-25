@@ -192,7 +192,23 @@
           {%- endfor -%}
         </ul>
       {%- endif -%}
-
+      {%- comment -%}
+        MiniProject category
+      {%- endcomment -%}
+      {% assign MP = NAV | where: 'category', 'MiniProject' %}
+      {% if MP and MP.size > 0 %}
+        <p class="nav-section-title">MiniProject</p>
+        <ul class="nav-list">
+          {% assign MP_SORTED = MP | sort: 'nav_order' %}
+          {% for p in MP_SORTED %}
+            <li>
+              <a class="nav-link{% if CURRENT_URL == p.url %}" aria-current="page{% endif %}" href="{{ p.url | relative_url }}">
+                {{ p.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
       {%- if OTH_SORTED and OTH_SORTED.size > 0 -%}
         <p class="nav-section-title">Other</p>
         <ul class="nav-list">
