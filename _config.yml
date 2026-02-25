@@ -1,4 +1,7 @@
-theme: jekyll-theme-minimal
-title: KPIT APEX Lab — System Programming Assignments
-logo: /logo.png   # optional
-show_downloads: false
+title: "KPIT APEX Lab: Linux Assignment Page"
+markdown: kramdown
+theme: null             # ensure no default theme UI
+plugins: []             # keep it lean
+permalink: pretty       # clean URLs like /signal/
+kramdown:
+  input: GFM            # GitHub-flavored Markdown
