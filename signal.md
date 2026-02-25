@@ -1,3 +1,10 @@
+---
+layout: default
+title: Signals
+nav: true
+nav_order: 2
+---
+
 # Scenario: Log Monitoring System Using SIGUSR1 Between Unrelated Processes
 
 ### Context:
