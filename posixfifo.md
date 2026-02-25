@@ -1,4 +1,10 @@
-# FIFO
+---
+layout: default
+title: POSIX FIFO
+nav: true
+nav_order: 4
+---
+
 ## Command Dispatcher Terminal
 
 _Problem Statement_
