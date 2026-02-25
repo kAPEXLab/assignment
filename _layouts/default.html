@@ -87,10 +87,27 @@
       {% assign CURRENT_URL = page.url %}
 
       {%- comment -%}
-        Section: Process Control
+        1) HOME at the very top (if present)
+      {%- endcomment -%}
+      {% assign HOME = NAV_ALL | where: 'title', 'Home' | first %}
+      {% if HOME %}
+        <ul class="nav-list">
+          <li>
+            <a class="nav-link"
+               href="{{ HOME.url | relative_url }}"
+               {% if CURRENT_URL == HOME.url %}aria-current="page"{% endif %}>
+              {{ HOME.title }}
+            </a>
+          </li>
+        </ul>
+      {% endif %}
+
+      {%- comment -%}
+        2) PROCESS CONTROL section
+        (shows pages with category: Process Control)
       {%- endcomment -%}
       {% assign PC = NAV_ALL | where: 'category', 'Process Control' %}
-      {% if PC.size > 0 %}
+      {% if PC and PC.size > 0 %}
         <p class="nav-section-title">Process Control</p>
         <ul class="nav-list">
           {% assign PC_SORTED = PC | sort: 'title' %}
@@ -98,17 +115,19 @@
             <li>
               <a class="nav-link"
                  href="{{ p.url | relative_url }}"
-                 {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
+                 {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>
+                {{ p.title }}
+              </a>
             </li>
           {% endfor %}
         </ul>
       {% endif %}
 
       {%- comment -%}
-        Section: IPC
+        3) IPC section
       {%- endcomment -%}
       {% assign IPC = NAV_ALL | where: 'category', 'IPC' %}
-      {% if IPC.size > 0 %}
+      {% if IPC and IPC.size > 0 %}
         <p class="nav-section-title">IPC</p>
         <ul class="nav-list">
           {% assign IPC_SORTED = IPC | sort: 'title' %}
@@ -116,18 +135,20 @@
             <li>
               <a class="nav-link"
                  href="{{ p.url | relative_url }}"
-                 {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
+                 {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>
+                {{ p.title }}
+              </a>
             </li>
           {% endfor %}
         </ul>
       {% endif %}
 
       {%- comment -%}
-        Section: Other (pages with nav: true but no category)
+        4) OTHER = nav: true but no category (and not Home)
       {%- endcomment -%}
       {% assign OTHER = "" | split: "" %}
       {% for p in NAV_ALL %}
-        {% if p.category == nil or p.category == '' %}
+        {% if (p.category == nil or p.category == '') and p.title != 'Home' %}
           {% assign OTHER = OTHER | push: p %}
         {% endif %}
       {% endfor %}
@@ -139,7 +160,9 @@
             <li>
               <a class="nav-link"
                  href="{{ p.url | relative_url }}"
-                 {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
+                 {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>
+                {{ p.title }}
+              </a>
             </li>
           {% endfor %}
         </ul>
