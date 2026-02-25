@@ -83,90 +83,101 @@
     <aside>
       <p class="nav-section-title">Index</p>
 
-      {% assign NAV_ALL = site.pages | where: 'nav', true %}
-      {% assign CURRENT_URL = page.url %}
+      {%- assign NAV_ALL_RAW = site.pages | where_exp:'p','p.nav' -%}
+      {%- comment -%}
+        Normalize: make a simple array of pages we’ll sort/group.
+        Also compute lowercase+trimmed category for case-insensitive match.
+      {%- endcomment -%}
+      {%- assign NAV = "" | split:"" -%}
+      {%- for p in NAV_ALL_RAW -%}
+        {%- assign cat = p.category | default:"" | strip | downcase -%}
+        {%- assign t   = p.title    | default:"" | strip -%}
+        {%- if t != "" -%}
+          {%- assign NAV = NAV | push: p -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- assign CURRENT_URL = page.url -%}
 
       {%- comment -%}
-        1) HOME at the very top (if present)
+        1) HOME at the very top (title: "Home")
       {%- endcomment -%}
-      {% assign HOME = NAV_ALL | where: 'title', 'Home' | first %}
-      {% if HOME %}
+      {%- assign HOME = NAV | where: 'title', 'Home' | first -%}
+      {%- if HOME -%}
         <ul class="nav-list">
           <li>
-            <a class="nav-link"
-               href="{{ HOME.url | relative_url }}"
-               {% if CURRENT_URL == HOME.url %}aria-current="page"{% endif %}>
+            <a class="nav-link{% if CURRENT_URL == HOME.url %}" aria-current="page{% endif %}" href="{{ HOME.url | relative_url }}">
               {{ HOME.title }}
             </a>
           </li>
         </ul>
-      {% endif %}
+      {%- endif -%}
 
       {%- comment -%}
-        2) PROCESS CONTROL section
-        (shows pages with category: Process Control)
+        Helper to render a section by category label (case-insensitive match).
       {%- endcomment -%}
-      {% assign PC = NAV_ALL | where: 'category', 'Process Control' %}
-      {% if PC and PC.size > 0 %}
+      {%- assign PC_LIST = "" | split:"" -%}
+      {%- assign IPC_LIST = "" | split:"" -%}
+      {%- assign OTHER_LIST = "" | split:"" -%}
+
+      {%- for p in NAV -%}
+        {%- assign cat_norm = p.category | default:"" | strip | downcase -%}
+        {%- if p.title != 'Home' -%}
+          {%- if cat_norm == 'process control' -%}
+            {%- assign PC_LIST = PC_LIST | push: p -%}
+          {%- elsif cat_norm == 'ipc' -%}
+            {%- assign IPC_LIST = IPC_LIST | push: p -%}
+          {%- elsif cat_norm == '' -%}
+            {%- assign OTHER_LIST = OTHER_LIST | push: p -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- comment -%}
+        Sort lists alphabetically by title (safe, avoids nil comparisons).
+      {%- endcomment -%}
+      {%- assign PC_SORTED  = PC_LIST  | sort: 'title' -%}
+      {%- assign IPC_SORTED = IPC_LIST | sort: 'title' -%}
+      {%- assign OTH_SORTED = OTHER_LIST | sort: 'title' -%}
+
+      {%- if PC_SORTED and PC_SORTED.size > 0 -%}
         <p class="nav-section-title">Process Control</p>
         <ul class="nav-list">
-          {% assign PC_SORTED = PC | sort: 'title' %}
-          {% for p in PC_SORTED %}
+          {%- for p in PC_SORTED -%}
             <li>
-              <a class="nav-link"
-                 href="{{ p.url | relative_url }}"
-                 {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>
+              <a class="nav-link{% if CURRENT_URL == p.url %}" aria-current="page{% endif %}" href="{{ p.url | relative_url }}">
                 {{ p.title }}
               </a>
             </li>
-          {% endfor %}
+          {%- endfor -%}
         </ul>
-      {% endif %}
+      {%- endif -%}
 
-      {%- comment -%}
-        3) IPC section
-      {%- endcomment -%}
-      {% assign IPC = NAV_ALL | where: 'category', 'IPC' %}
-      {% if IPC and IPC.size > 0 %}
+      {%- if IPC_SORTED and IPC_SORTED.size > 0 -%}
         <p class="nav-section-title">IPC</p>
         <ul class="nav-list">
-          {% assign IPC_SORTED = IPC | sort: 'title' %}
-          {% for p in IPC_SORTED %}
+          {%- for p in IPC_SORTED -%}
             <li>
-              <a class="nav-link"
-                 href="{{ p.url | relative_url }}"
-                 {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>
+              <a class="nav-link{% if CURRENT_URL == p.url %}" aria-current="page{% endif %}" href="{{ p.url | relative_url }}">
                 {{ p.title }}
               </a>
             </li>
-          {% endfor %}
+          {%- endfor -%}
         </ul>
-      {% endif %}
+      {%- endif -%}
 
-      {%- comment -%}
-        4) OTHER = nav: true but no category (and not Home)
-      {%- endcomment -%}
-      {% assign OTHER = "" | split: "" %}
-      {% for p in NAV_ALL %}
-        {% if (p.category == nil or p.category == '') and p.title != 'Home' %}
-          {% assign OTHER = OTHER | push: p %}
-        {% endif %}
-      {% endfor %}
-      {% if OTHER.size > 0 %}
+      {%- if OTH_SORTED and OTH_SORTED.size > 0 -%}
         <p class="nav-section-title">Other</p>
         <ul class="nav-list">
-          {% assign OTHER_SORTED = OTHER | sort: 'title' %}
-          {% for p in OTHER_SORTED %}
+          {%- for p in OTH_SORTED -%}
             <li>
-              <a class="nav-link"
-                 href="{{ p.url | relative_url }}"
-                 {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>
+              <a class="nav-link{% if CURRENT_URL == p.url %}" aria-current="page{% endif %}" href="{{ p.url | relative_url }}">
                 {{ p.title }}
               </a>
             </li>
-          {% endfor %}
+          {%- endfor -%}
         </ul>
-      {% endif %}
+      {%- endif -%}
     </aside>
 
     <!-- Right-side content -->
