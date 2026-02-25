@@ -1,6 +1,7 @@
 ---
 layout: default
 title: POSIX Message Queue
+category: IPC
 nav: true
 nav_order: 6
 ---
