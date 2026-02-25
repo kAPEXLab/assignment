@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Thread
+category: Process Contro
 nav: true
 nav_order: 3
 ---
