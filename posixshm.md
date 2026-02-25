@@ -1,5 +1,11 @@
-# POSIX Shared Memory
-## Real-Time System Dashboard: Shared Memory Data Exchange
+---
+layout: default
+title: POSIX Shared Memory
+nav: true
+nav_order: 10
+---
+
+# Real-Time System Dashboard: Shared Memory Data Exchange
 
 _Problem Statement_
 
