@@ -153,22 +153,21 @@
         </ul>
       {%- endif -%}
 
-            {%- comment -%}
+      {%- comment -%}
         IPC section — fixed order: PIPE, FIFO, Message Queue, Shared Memory
       {%- endcomment -%}
       {% assign IPC = NAV | where: 'category', 'IPC' %}
-      {%- assign IPC_SORTED = IPC | sort: 'title' -%} {# keep a fallback list #}
       {%- if IPC and IPC.size > 0 -%}
         <p class="nav-section-title">IPC</p>
         <ul class="nav-list">
           {%- assign order = "POSIX PIPE|POSIX FIFO|POSIX Message Queue|POSIX Shared Memory" | split:"|" -%}
       
-          {# Render in the desired sequence #}
+          {%- comment -%} Render in the desired sequence {%- endcomment -%}
           {%- for name in order -%}
             {%- for p in IPC -%}
               {%- if p.title == name -%}
                 <li>
-                  <a class="nav-link{% if CURRENT_URL == p.url %}" aria-current="page{% endif %}" href="{{ p.url | relative_url }}">
+                  <a class="nav-link{% if CURRENT_URL == p.url %} is-active{% endif %}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %} href="{{ p.url | relative_url }}">
                     {{ p.title }}
                   </a>
                 </li>
@@ -176,7 +175,7 @@
             {%- endfor -%}
           {%- endfor -%}
       
-          {# (Optional) render any extra IPC pages not in the ordered list #}
+          {%- comment -%} Optional: any extra IPC pages not in the ordered list {%- endcomment -%}
           {%- assign extras = "" | split:"" -%}
           {%- for p in IPC -%}
             {%- unless order contains p.title -%}
@@ -186,7 +185,7 @@
           {%- assign extras = extras | sort: 'title' -%}
           {%- for p in extras -%}
             <li>
-              <a class="nav-link{% if CURRENT_URL == p.url %}" aria-current="page{% endif %}" href="{{ p.url | relative_url }}">
+              <a class="nav-link{% if CURRENT_URL == p.url %} is-active{% endif %}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %} href="{{ p.url | relative_url }}">
                 {{ p.title }}
               </a>
             </li>
