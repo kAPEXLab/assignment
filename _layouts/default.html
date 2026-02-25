@@ -85,7 +85,11 @@
     <aside>
       <p class="nav-title">Index</p>
       <ul class="nav-list">
-        {% assign pages_sorted = site.pages | where_exp:'p','p.nav == true' | sort:'nav_order' %}
+        {% assign pages_sorted = site.pages
+           | where_exp:'p','p.nav == true' 
+           | sort: 'category' 
+           | sort: 'nav_order' 
+        %}
         {% for p in pages_sorted %}
           <li>
             <a class="nav-link"
