@@ -1,3 +1,11 @@
+---
+layout: default
+title: Mini Project 1 Guidelines
+category: MiniProject
+nav: true
+nav_order: 20
+---
+
 # **Mini Project Guidelines – Linux System Calls & IPC (Simulation-Based)**
 
 ## **1. Objective**
