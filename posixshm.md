@@ -2,7 +2,7 @@
 layout: default
 title: POSIX Shared Memory
 nav: true
-nav_order: 10
+nav_order: 7
 ---
 
 # Real-Time System Dashboard: Shared Memory Data Exchange
