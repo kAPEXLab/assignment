@@ -52,8 +52,8 @@
       min-width: 0;
     }
 
-    /* Sidebar nav */
-    .nav-title { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin: 16px 0 8px; }
+    /* Sidebar */
+    .nav-section-title { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin: 16px 0 8px; }
     .nav-list { list-style: none; margin: 0; padding: 0; }
     .nav-list li { margin: 6px 0; }
     .nav-link {
@@ -63,7 +63,7 @@
       background: #f1f5f9; font-weight: 600; color: var(--accent);
     }
 
-    /* Content styles */
+    /* Content */
     main h1 { margin-top: 0; font-size: 28px; }
     main h2 { margin-top: 1.5em; font-size: 22px; }
     main h3 { margin-top: 1.25em; font-size: 18px; }
@@ -83,82 +83,71 @@
   <div class="wrap">
     <!-- Persistent sidebar index -->
     <aside>
-      <p class="nav-title">Index</p>
+      <p class="nav-section-title">Index</p>
 
-      {%- comment -%}
-        Collect all pages that should be in the sidebar
-      {%- endcomment -%}
       {% assign NAV = site.pages | where_exp:'p','p.nav == true' %}
-
-      {%- comment -%}
-        Helper: render a category section safely.
-        We split pages into: with nav_order (sorted by nav_order) and without (sorted by title).
-      {%- endcomment -%}
       {% assign CURRENT_URL = page.url %}
 
       {%- comment -%}
-        == Process Control ==
+        Helper macro to render a category (by name).
+        Splits into:
+          - with nav_order (sorted by nav_order)
+          - without nav_order (sorted by title)
       {%- endcomment -%}
-      {% assign cat = "Process Control" %}
-      {% assign cat_all = NAV | where: 'category', cat %}
-      {% assign cat_with_order = cat_all | where_exp:'p','p.nav_order' | sort: 'nav_order' %}
-      {% assign cat_without_order = cat_all | where_exp:'p','p.nav_order == nil' | sort: 'title' %}
+      {% assign cat_name = "Process Control" %}
+      {% assign cat_all = NAV | where: 'category', cat_name %}
       {% if cat_all and cat_all.size > 0 %}
-        <p class="nav-title">{{ cat }}</p>
+        {% assign cat_with_order = cat_all | where_exp:'p','p.nav_order != nil' | sort: 'nav_order' %}
+        {% assign cat_without_order = cat_all | where_exp:'p','p.nav_order == nil' | sort: 'title' %}
+        <p class="nav-section-title">{{ cat_name }}</p>
         <ul class="nav-list">
           {% for p in cat_with_order %}
             <li>
-              <a class="nav-link" href="{{ p.url | relative_url }}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>{{ p.title }}</a>
+              <a class="nav-link" href="{{ p.url | relative_url }}" {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
             </li>
           {% endfor %}
           {% for p in cat_without_order %}
             <li>
-              <a class="nav-link" href="{{ p.url | relative_url }}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>{{ p.title }}</a>
+              <a class="nav-link" href="{{ p.url | relative_url }}" {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
             </li>
           {% endfor %}
         </ul>
       {% endif %}
 
-      {%- comment -%}
-        == IPC ==
-      {%- endcomment -%}
-      {% assign cat = "IPC" %}
-      {% assign cat_all = NAV | where: 'category', cat %}
-      {% assign cat_with_order = cat_all | where_exp:'p','p.nav_order' | sort: 'nav_order' %}
-      {% assign cat_without_order = cat_all | where_exp:'p','p.nav_order == nil' | sort: 'title' %}
+      {% assign cat_name = "IPC" %}
+      {% assign cat_all = NAV | where: 'category', cat_name %}
       {% if cat_all and cat_all.size > 0 %}
-        <p class="nav-title">{{ cat }}</p>
+        {% assign cat_with_order = cat_all | where_exp:'p','p.nav_order != nil' | sort: 'nav_order' %}
+        {% assign cat_without_order = cat_all | where_exp:'p','p.nav_order == nil' | sort: 'title' %}
+        <p class="nav-section-title">{{ cat_name }}</p>
         <ul class="nav-list">
           {% for p in cat_with_order %}
             <li>
-              <a class="nav-link" href="{{ p.url | relative_url }}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>{{ p.title }}</a>
+              <a class="nav-link" href="{{ p.url | relative_url }}" {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
             </li>
           {% endfor %}
           {% for p in cat_without_order %}
             <li>
-              <a class="nav-link" href="{{ p.url | relative_url }}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>{{ p.title }}</a>
+              <a class="nav-link" href="{{ p.url | relative_url }}" {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
             </li>
           {% endfor %}
         </ul>
       {% endif %}
 
-      {%- comment -%}
-        == Other (no category) ==
-      {%- endcomment -%}
       {% assign other_all = NAV | where_exp:'p','p.category == nil or p.category == ""' %}
       {% if other_all and other_all.size > 0 %}
-        {% assign other_with_order = other_all | where_exp:'p','p.nav_order' | sort: 'nav_order' %}
+        {% assign other_with_order = other_all | where_exp:'p','p.nav_order != nil' | sort: 'nav_order' %}
         {% assign other_without_order = other_all | where_exp:'p','p.nav_order == nil' | sort: 'title' %}
-        <p class="nav-title">Other</p>
+        <p class="nav-section-title">Other</p>
         <ul class="nav-list">
           {% for p in other_with_order %}
             <li>
-              <a class="nav-link" href="{{ p.url | relative_url }}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>{{ p.title }}</a>
+              <a class="nav-link" href="{{ p.url | relative_url }}" {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
             </li>
           {% endfor %}
           {% for p in other_without_order %}
             <li>
-              <a class="nav-link" href="{{ p.url | relative_url }}" {% if CURRENT_URL == p.url %}aria-current="page"{% endif %}>{{ p.title }}</a>
+              <a class="nav-link" href="{{ p.url | relative_url }}" {% if p.url == CURRENT_URL %}aria-current="page"{% endif %}>{{ p.title }}</a>
             </li>
           {% endfor %}
         </ul>
