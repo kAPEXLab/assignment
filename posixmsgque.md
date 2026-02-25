@@ -1,5 +1,11 @@
-# POSIX Message Queue
-## Priority-Based Task Notification System
+---
+layout: default
+title: POSIX Message Queue
+nav: true
+nav_order: 5
+---
+
+# Priority-Based Task Notification System
 
 _Problem Statement_
 
