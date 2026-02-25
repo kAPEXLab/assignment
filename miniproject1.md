@@ -228,5 +228,3 @@ Briefly explain:
 *   Keep the design *simple but complete*.
 
 ***
-
-If you want, I can also prepare a **student checklist** or a **one-page summary** for quick reference.
