@@ -2,7 +2,7 @@
 layout: default
 title: POSIX PIPE
 nav: true
-nav_order: 3
+nav_order: 4
 ---
 
 # Sensor Data Splitter Using Parent + Two Children
