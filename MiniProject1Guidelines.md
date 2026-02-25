@@ -165,7 +165,7 @@ Submit the following:
 *   Initial block diagram
 *   High-level data flow
 
-### **2. Detailed Design (4–6 pages)**
+### **2. Detailed Design**
 
 *   Process design
 *   Thread design
