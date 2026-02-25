@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Signals
-category: Process Contro
+category: Process Control
 nav: true
 nav_order: 2
 ---
