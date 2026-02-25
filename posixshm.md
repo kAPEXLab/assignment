@@ -1,6 +1,7 @@
 ---
 layout: default
 title: POSIX Shared Memory
+category: IPC
 nav: true
 nav_order: 7
 ---
